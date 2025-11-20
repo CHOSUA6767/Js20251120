@@ -408,15 +408,36 @@ h3.my-profession {
 }
 
 .home .home-img {
-  /*flex: 0 0 40%;*/
   max-width: 40%;
   height: fit-content;
   text-align: center;
   position: relative;
   padding: 0 4rem;
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
-.home-img::before {
+.home .home-img #home-pokemon-logo-container {
+  width: 200px; /* Adjust size as needed */
+  height: 200px; /* Adjust size as needed */
+  position: relative;
+}
+
+.home .home-img .pokemon-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none; /* Hide all SVGs by default */
+}
+
+.home .home-img .pokemon-svg.active {
+  display: block; /* Show only the active SVG */
+}
+
+.home .home-img::before {
   content: '';
   position: absolute;
   height: 5rem;

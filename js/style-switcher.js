@@ -47,15 +47,28 @@ function setActiveStyle(color) {
     };
     const pokemonName = pokemonMap[color];
 
-    document.querySelectorAll('.pokemon-svg').forEach(svg => {
+    // Update logo in aside section
+    document.querySelectorAll('#pokemon-logo-container .pokemon-svg').forEach(svg => {
       svg.style.display = 'none';
       svg.classList.remove('active');
     });
 
-    const activeSvg = document.getElementById(`${pokemonName}-svg`);
-    if (activeSvg) {
-      activeSvg.style.display = 'block';
-      activeSvg.classList.add('active');
+    const asideActiveSvg = document.getElementById(`${pokemonName}-svg`);
+    if (asideActiveSvg) {
+      asideActiveSvg.style.display = 'block';
+      asideActiveSvg.classList.add('active');
+    }
+
+    // Update logo in home-img section
+    document.querySelectorAll('#home-pokemon-logo-container .pokemon-svg').forEach(svg => {
+      svg.style.display = 'none';
+      svg.classList.remove('active');
+    });
+
+    const homeActiveSvg = document.getElementById(`home-${pokemonName}-svg`);
+    if (homeActiveSvg) {
+      homeActiveSvg.style.display = 'block';
+      homeActiveSvg.classList.add('active');
     }
   }
 
