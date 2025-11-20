@@ -207,27 +207,8 @@ ul {
   text-transform: capitalize;
 }
 
-#pokemon-logo-container {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-}
 
-.pokemon-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none; /* Hide all SVGs by default */
-}
-
-.pokemon-svg.active {
-  display: block; /* Show only the active SVG */
-}
-
-.speech-bubble {
+.home .home-img .speech-bubble {
   position: absolute;
   width: 120px;
   background: var(--bg-black-100);
@@ -237,8 +218,8 @@ ul {
   font-size: 1.2rem;
   color: var(--text-black-900);
   top: 50%;
-  left: 100%; /* Position to the right of the logo */
-  transform: translateY(-50%) translateX(10px); /* Adjust for spacing */
+  right: 100%; /* Position to the left of the logo */
+  transform: translateY(-50%) translateX(-10px); /* Adjust for spacing */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -246,21 +227,21 @@ ul {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.speech-bubble:after {
+.home .home-img .speech-bubble:after {
   content: '';
   position: absolute;
-  left: 0;
+  right: 0;
   top: 50%;
   width: 0;
   height: 0;
   border: 10px solid transparent;
-  border-right-color: var(--bg-black-100);
-  border-left: 0;
+  border-left-color: var(--bg-black-100);
+  border-right: 0;
   margin-top: -10px;
-  margin-left: -10px;
+  margin-right: -10px;
 }
 
-.speech-bubble.show {
+.home .home-img .speech-bubble.show {
   opacity: 1;
   visibility: visible;
 }

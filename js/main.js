@@ -179,16 +179,16 @@ window.addEventListener('load', function () {
     }, 5000);
   }
 
-  const logoContainer = document.getElementById("pokemon-logo-container");
+  const logoContainer = document.getElementById("home-pokemon-logo-container");
   if (logoContainer) {
     logoContainer.addEventListener("click", () => {
       if (speechBubble) {
         speechBubble.classList.remove("show");
       }
 
-      const activeSvg = document.querySelector(".pokemon-svg.active");
+      const activeSvg = document.querySelector("#home-pokemon-logo-container .pokemon-svg.active");
       if (activeSvg) {
-        const pokemonName = activeSvg.id.replace('-svg', '');
+        const pokemonName = activeSvg.id.replace('home-', '').replace('-svg', '');
         const sound = document.getElementById(`${pokemonName}-sound`);
 
         activeSvg.classList.add("eevee-animation");
