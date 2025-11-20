@@ -200,52 +200,30 @@ ul {
   transition:  all 0.3s ease;
 }
 
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+#home-pokemon-logo-container.eevee-animation {
+  animation: shake 0.5s !important;
+}
+
 .aside .logo {
   position: absolute;
   top: 50px;
   font-size: 3rem;
   text-transform: capitalize;
 }
-
-
-.home .home-img .speech-bubble {
-  position: absolute;
-  width: 120px;
-  background: var(--bg-black-100);
-  border-radius: .4em;
-  padding: 5px;
-  text-align: center;
-  font-size: 1.2rem;
-  color: var(--text-black-900);
-  top: 50%;
-  right: 100%; /* Position to the left of the logo */
-  transform: translateY(-50%) translateX(-10px); /* Adjust for spacing */
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  white-space: nowrap;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.home .home-img .speech-bubble:after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-left-color: var(--bg-black-100);
-  border-right: 0;
-  margin-top: -10px;
-  margin-right: -10px;
-}
-
-.home .home-img .speech-bubble.show {
-  opacity: 1;
-  visibility: visible;
-}
-
 
 .home .home-img .speech-bubble {
   position: absolute;
