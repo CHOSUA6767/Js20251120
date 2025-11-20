@@ -157,7 +157,7 @@ function portfolioItemDetails(portfolioItem) {
   emailjs.init('1LsCcPyoJuh3rVgNc');
 })();
 
-window.onload = function () {
+window.addEventListener('load', function () {
   document.getElementById('contact-form').addEventListener('submit', function (event) {
     event.preventDefault();
     // generate a five digit number for the contact_number variable
@@ -174,24 +174,31 @@ window.onload = function () {
   });
 
   const eeveeSpeechBubble = document.getElementById("eevee-speech-bubble");
-  eeveeSpeechBubble.classList.add("show"); // Show on load
+  if (eeveeSpeechBubble) {
+    eeveeSpeechBubble.classList.add("show"); // Show on load
 
-  setTimeout(() => {
-    eeveeSpeechBubble.classList.remove("show"); // Hide after 5 seconds
-  }, 5000);
-}
+    setTimeout(() => {
+      eeveeSpeechBubble.classList.remove("show"); // Hide after 5 seconds
+    }, 5000);
+  }
 
-const eeveeLogo = document.querySelector(".aside .logo a svg");
-const eeveeSound = document.getElementById("eevee-sound");
+  const eeveeLogo = document.querySelector(".aside .logo a svg");
+  const eeveeSound = document.getElementById("eevee-sound");
+  const eeveeSpeechBubbleOnClick = document.getElementById("eevee-speech-bubble");
 
-eeveeLogo.addEventListener("click", () => {
-  eeveeSpeechBubble.classList.remove("show"); // Hide on click
-  eeveeLogo.classList.add("eevee-animation");
-  eeveeSound.play();
+  if (eeveeLogo && eeveeSound) {
+    eeveeLogo.addEventListener("click", () => {
+      if (eeveeSpeechBubbleOnClick) {
+        eeveeSpeechBubbleOnClick.classList.remove("show"); // Hide on click
+      }
+      eeveeLogo.classList.add("eevee-animation");
+      eeveeSound.play();
 
-  eeveeLogo.addEventListener("animationend", () => {
-    eeveeLogo.classList.remove("eevee-animation");
-  }, { once: true });
+      eeveeLogo.addEventListener("animationend", () => {
+        eeveeLogo.classList.remove("eevee-animation");
+      }, { once: true });
+    });
+  }
 });
 
 
