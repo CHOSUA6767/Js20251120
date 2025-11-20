@@ -174,4 +174,17 @@ window.onload = function () {
   });
 }
 
+const eeveeLogo = document.querySelector(".aside .logo a svg");
+const eeveeSound = document.getElementById("eevee-sound");
+
+eeveeLogo.addEventListener("click", () => {
+  eeveeLogo.classList.add("eevee-animation");
+  eeveeSound.play();
+
+  eeveeLogo.addEventListener("animationend", () => {
+    eeveeLogo.classList.remove("eevee-animation");
+  }, { once: true });
+});
+
+
   
