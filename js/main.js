@@ -191,13 +191,13 @@ window.addEventListener('load', function () {
         const pokemonName = activeSvg.id.replace('home-', '').replace('-svg', '');
         const sound = document.getElementById(`${pokemonName}-sound`);
 
-        activeSvg.classList.add("eevee-animation");
+        logoContainer.classList.add("eevee-animation"); // Apply animation to container
         if (sound) {
           sound.play();
         }
 
-        activeSvg.addEventListener("animationend", () => {
-          activeSvg.classList.remove("eevee-animation");
+        logoContainer.addEventListener("animationend", () => {
+          logoContainer.classList.remove("eevee-animation"); // Remove from container
         }, { once: true });
       }
     });
