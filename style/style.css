@@ -235,8 +235,8 @@ ul {
   font-size: 1.2rem;
   color: var(--text-black-900);
   top: 50%;
-  right: 100%; /* Position to the left of the logo */
-  transform: translateY(-50%) translateX(-10px); /* Adjust for spacing */
+  left: 100%; /* Position to the right of the logo */
+  transform: translateY(-50%) translateX(10px); /* Adjust for spacing */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -247,15 +247,37 @@ ul {
 .home .home-img .speech-bubble:after {
   content: '';
   position: absolute;
-  right: 0;
+  left: 0;
   top: 50%;
   width: 0;
   height: 0;
   border: 10px solid transparent;
-  border-left-color: var(--bg-black-100);
-  border-right: 0;
+  border-right-color: var(--bg-black-100);
+  border-left: 0;
   margin-top: -10px;
-  margin-right: -10px;
+  margin-left: -10px;
+}
+
+.home .home-img::before {
+  content: '';
+  position: absolute;
+  height: 5rem;
+  width: 5rem;
+  border-top: 10px solid var(--skin-color);
+  border-left: 10px solid var(--skin-color);
+  left: 0;
+  top: 0; 
+}
+
+.home-img::after {
+  content: '';
+  position: absolute;
+  height: 5rem;
+  width: 5rem;
+  border-bottom: 10px solid var(--skin-color);
+  border-right: 10px solid var(--skin-color);
+  right: 0;
+  bottom: 0; 
 }
 
 .home .home-img .speech-bubble.show {
