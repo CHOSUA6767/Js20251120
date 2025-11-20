@@ -24,11 +24,11 @@ const alternateStyle = document.querySelectorAll(".alternate-style");
 function setActiveStyle(color) {
   localStorage.setItem("color", color);
   changeColor();
+  changePokemon(color);
 
   function changeColor() {
     alternateStyle.forEach((style) => {
       if(localStorage.getItem("color") === style.getAttribute("title")){
-      // if (color === style.getAttribute("title")) {
         style.removeAttribute("disabled");
       }
       else {
@@ -36,6 +36,29 @@ function setActiveStyle(color) {
       }
     })
   }
+
+  function changePokemon(color) {
+    const pokemonMap = {
+      'color-1': 'eevee',
+      'color-2': 'vaporeon',
+      'color-3': 'flareon',
+      'color-4': 'leafeon',
+      'color-5': 'jolteon'
+    };
+    const pokemonName = pokemonMap[color];
+
+    document.querySelectorAll('.pokemon-svg').forEach(svg => {
+      svg.style.display = 'none';
+      svg.classList.remove('active');
+    });
+
+    const activeSvg = document.getElementById(`${pokemonName}-svg`);
+    if (activeSvg) {
+      activeSvg.style.display = 'block';
+      activeSvg.classList.add('active');
+    }
+  }
+
   styleSwitcher.classList.remove("open");
 }  
 

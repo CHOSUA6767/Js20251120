@@ -160,9 +160,7 @@ function portfolioItemDetails(portfolioItem) {
 window.addEventListener('load', function () {
   document.getElementById('contact-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    // generate a five digit number for the contact_number variable
     this.contact_number.value = Math.random() * 100000 | 0;
-    // these IDs from the previous steps
     emailjs.sendForm('service_p9u31ze', 'template_ajad98f', this)
       .then(function () {
         console.log('SUCCESS!');
@@ -173,30 +171,35 @@ window.addEventListener('load', function () {
       });
   });
 
-  const eeveeSpeechBubble = document.getElementById("eevee-speech-bubble");
-  if (eeveeSpeechBubble) {
-    eeveeSpeechBubble.classList.add("show"); // Show on load
-
+  const speechBubble = document.getElementById("eevee-speech-bubble");
+  if (speechBubble) {
+    speechBubble.classList.add("show");
     setTimeout(() => {
-      eeveeSpeechBubble.classList.remove("show"); // Hide after 5 seconds
+      speechBubble.classList.remove("show");
     }, 5000);
   }
 
-  const eeveeLogo = document.querySelector(".aside .logo a svg");
-  const eeveeSound = document.getElementById("eevee-sound");
-  const eeveeSpeechBubbleOnClick = document.getElementById("eevee-speech-bubble");
-
-  if (eeveeLogo && eeveeSound) {
-    eeveeLogo.addEventListener("click", () => {
-      if (eeveeSpeechBubbleOnClick) {
-        eeveeSpeechBubbleOnClick.classList.remove("show"); // Hide on click
+  const logoContainer = document.getElementById("pokemon-logo-container");
+  if (logoContainer) {
+    logoContainer.addEventListener("click", () => {
+      if (speechBubble) {
+        speechBubble.classList.remove("show");
       }
-      eeveeLogo.classList.add("eevee-animation");
-      eeveeSound.play();
 
-      eeveeLogo.addEventListener("animationend", () => {
-        eeveeLogo.classList.remove("eevee-animation");
-      }, { once: true });
+      const activeSvg = document.querySelector(".pokemon-svg.active");
+      if (activeSvg) {
+        const pokemonName = activeSvg.id.replace('-svg', '');
+        const sound = document.getElementById(`${pokemonName}-sound`);
+
+        activeSvg.classList.add("eevee-animation");
+        if (sound) {
+          sound.play();
+        }
+
+        activeSvg.addEventListener("animationend", () => {
+          activeSvg.classList.remove("eevee-animation");
+        }, { once: true });
+      }
     });
   }
 });
