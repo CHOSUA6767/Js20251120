@@ -237,6 +237,44 @@ ul {
   display: block;
 }
 
+.speech-bubble {
+  position: absolute;
+  width: 120px;
+  background: var(--bg-black-100);
+  border-radius: .4em;
+  padding: 5px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-black-900);
+  top: 50%;
+  left: 100%; /* Position to the right of the logo */
+  transform: translateY(-50%) translateX(10px); /* Adjust for spacing */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-right-color: var(--bg-black-100);
+  border-left: 0;
+  margin-top: -10px;
+  margin-left: -10px;
+}
+
+.speech-bubble.show {
+  opacity: 1;
+  visibility: visible;
+}
+
 .aside .logo a svg {
     width: 100%;
     height: 100%;

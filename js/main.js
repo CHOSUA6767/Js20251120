@@ -172,12 +172,20 @@ window.onload = function () {
         console.log('FAILED...', error);
       });
   });
+
+  const eeveeSpeechBubble = document.getElementById("eevee-speech-bubble");
+  eeveeSpeechBubble.classList.add("show"); // Show on load
+
+  setTimeout(() => {
+    eeveeSpeechBubble.classList.remove("show"); // Hide after 5 seconds
+  }, 5000);
 }
 
 const eeveeLogo = document.querySelector(".aside .logo a svg");
 const eeveeSound = document.getElementById("eevee-sound");
 
 eeveeLogo.addEventListener("click", () => {
+  eeveeSpeechBubble.classList.remove("show"); // Hide on click
   eeveeLogo.classList.add("eevee-animation");
   eeveeSound.play();
 
