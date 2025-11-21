@@ -439,8 +439,8 @@ h3.my-profession {
 }
 
 .home .home-img #home-pokemon-logo-container {
-  width: 200px; /* Adjust size as needed */
-  height: 200px; /* Adjust size as needed */
+  width: 300px; /* Adjust size as needed */
+  height: 300px; /* Adjust size as needed */
   position: relative;
 }
 
@@ -465,7 +465,7 @@ h3.my-profession {
   border-top: 10px solid var(--skin-color);
   border-left: 10px solid var(--skin-color);
   left: 0;
-  top: -4rem; 
+  top: -5rem; 
 }
 
 .home-img::after {
@@ -476,7 +476,7 @@ h3.my-profession {
   border-bottom: 10px solid var(--skin-color);
   border-right: 10px solid var(--skin-color);
   right: 0;
-  bottom: -4rem; 
+  bottom: -5rem; 
 }
 
 .home .home-img img {
