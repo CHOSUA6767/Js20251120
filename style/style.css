@@ -235,7 +235,7 @@ ul {
   font-size: 1.2rem;
   color: var(--text-black-900);
   top: 50%;
-  left: 100%; /* Position to the right of the logo */
+  left: 60%; /* Position to the right of the logo */
   transform: translateY(-50%) translateX(10px); /* Adjust for spacing */
   opacity: 0;
   visibility: hidden;
@@ -276,8 +276,8 @@ ul {
   width: 5rem;
   border-bottom: 10px solid var(--skin-color);
   border-right: 10px solid var(--skin-color);
-  right: 0;
-  bottom: 0; 
+  right: 8rem;
+  bottom: 2rem; 
 }
 
 .home .home-img .speech-bubble.show {
