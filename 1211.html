@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조수아 - 포트폴리오</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==================== 
+           1. CSS 스타일 정의 
+           ==================== */
+        
+        /* [공통 변수 및 리셋] */
+        :root {
+            --primary-color: #6c5ce7; /* 메인 컬러: 보라색 계열 */
+            --secondary-color: #a29bfe;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f5f6fa;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+        /* [헤더 & 내비게이션] */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
+
+        .menu-toggle {
+            display: none; /* 데스크톱 기본 숨김 */
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .nav-menu ul { display: flex; gap: 30px; }
+        .nav-menu a { font-weight: 500; transition: var(--transition); }
+        .nav-menu a:hover { color: var(--primary-color); }
+
+        /* [히어로 섹션 (메인)] */
+        .hero {
+            margin-top: 70px;
+            padding: 80px 0;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            flex-direction: row; /* 기본 가로 정렬 (데스크톱) */
+        }
+
+        .profile-box img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--white);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+        }
+
+        .text-box h2 { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.2; }
+        .text-box .highlight { color: var(--primary-color); }
+        .text-box .school { font-size: 1.1rem; color: var(--text-light); font-weight: 600; margin-bottom: 20px; }
+        .text-box .desc { margin-bottom: 30px; font-size: 1.1rem; color: var(--text-light); }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: var(--white);
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+            transition: var(--transition);
+        }
+        .btn:hover { background: #5649c0; transform: translateY(-3px); }
+
+        /* [소개 섹션] */
+        .section { padding: 80px 0; }
+        .section-title { text-align: center; margin-bottom: 50px; font-size: 2rem; }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 기본 3열 (데스크톱/태블릿) */
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 40px 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card i { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; }
+        .card h3 { margin-bottom: 15px; font-size: 1.3rem; }
+        .card p { color: var(--text-light); font-size: 0.95rem; }
+
+        /* [푸터] */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 50px 0;
+            text-align: center;
+        }
+        .social-links { margin: 20px 0; }
+        .social-links a { color: var(--white); font-size: 1.8rem; margin: 0 15px; transition: var(--transition); }
+        .social-links a:hover { color: var(--secondary-color); }
+
+        /* =========================================
+           [미디어 쿼리 - 반응형 처리]
+           ========================================= */
+        
+        /* 1. 태블릿 (992px 이하) */
+        @media (max-width: 992px) {
+            .hero-content {
+                gap: 30px;
+            }
+            .text-box h2 { font-size: 2rem; }
+            .profile-box img { width: 220px; height: 220px; }
+        }
+
+        /* 2. 모바일 (768px 이하) */
+        @media (max-width: 768px) {
+            /* 헤더: 햄버거 메뉴 활성화 */
+            .menu-toggle { display: block; }
+            
+            .nav-menu {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                border-top: 1px solid #eee;
+                transform: translateY(-150%); /* 위로 숨김 */
+                transition: var(--transition);
+                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+            }
+            
+            .nav-menu.active { transform: translateY(0); } /* 활성화 시 내려옴 */
+            
+            .nav-menu ul {
+                flex-direction: column;
+                text-align: center;
+                gap: 0;
+            }
+            .nav-menu li { padding: 15px 0; border-bottom: 1px solid #f1f1f1; }
+
+            /* 히어로 섹션: 세로 정렬 */
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-box img { width: 180px; height: 180px; margin-bottom: 20px; }
+            .text-box h2 { font-size: 1.8rem; }
+
+            /* 소개 섹션: 카드 1열로 변경 */
+            .about-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">Jo Su-Ah</a>
+            <button class="menu-toggle" aria-label="메뉴 열기">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="profile-box">
+                <img src="https://via.placeholder.com/400x400/a29bfe/ffffff?text=Su-Ah" alt="조수아 프로필">
+            </div>
+            <div class="text-box">
+                <span class="greeting">안녕하세요! 👋</span>
+                <h2>성장하는 개발자<br><span class="highlight">조수아</span>입니다.</h2>
+                <p class="school">🏫 한신대학교 재학 중</p>
+                <p class="desc">
+                    사용자 경험을 중요하게 생각하며,<br>
+                    새로운 기술을 배우는 것을 두려워하지 않습니다.
+                </p>
+                <a href="#contact" class="btn">연락하기</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Education</h3>
+                    <p><b>한신대학교</b></p>
+                    <p>컴퓨터공학 관련 전공</p>
+                    <p>20xx.03 ~ 재학 중</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-code"></i>
+                    <h3>Skills</h3>
+                    <p>HTML / CSS / JS</p>
+                    <p>Python / Java</p>
+                    <p>React Basic</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Interests</h3>
+                    <p>Web Development</p>
+                    <p>Mobile App</p>
+                    <p>UI/UX Design</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <h2>Contact</h2>
+            <p>함께 프로젝트를 하고 싶다면 언제든 연락주세요!</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:email@example.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2025 Jo Su-Ah. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            const menuLinks = document.querySelectorAll('.nav-menu a');
+
+            // 1. 햄버거 버튼 클릭 시 메뉴 토글
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                
+                // 아이콘 변경 (햄버거 <-> X)
+                const icon = menuToggle.querySelector('i');
+                if (navMenu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // 2. 메뉴 항목 클릭 시 메뉴 닫기 (모바일 UX)
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        menuToggle.querySelector('i').classList.remove('fa-times');
+                        menuToggle.querySelector('i').classList.add('fa-bars');
+                    }
+                });
+            });
+
+            // 3. 부드러운 스크롤 효과 (브라우저 호환성 보완)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
