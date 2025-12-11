@@ -3,216 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>조수아의 포트폴리오</title>
+    <title>조수아 - 3D 인터랙티브 포트폴리오</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
         /* ==================== 
            1. CSS 스타일 정의 
            ==================== */
         
-        /* [공통 변수 및 리셋] */
         :root {
-            --primary-color: #6c5ce7; /* 메인 컬러: 보라색 계열 */
-            --secondary-color: #a29bfe;
-            --text-dark: #2d3436;
-            --text-light: #636e72;
-            --bg-light: #f5f6fa;
-            --white: #ffffff;
-            --transition: all 0.3s ease;
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden; /* 가로 스크롤 방지 */
+            font-family: 'Pretendard', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* [움직이는 배경 오브젝트] */
+        .bg-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: floatShape 10s infinite alternate;
+        }
+        .shape1 { width: 400px; height: 400px; background: #a29bfe; top: -100px; left: -100px; }
+        .shape2 { width: 300px; height: 300px; background: #74b9ff; bottom: 50px; right: -50px; animation-duration: 15s; }
+
+        @keyframes floatShape {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 50px); }
         }
 
         a { text-decoration: none; color: inherit; }
         ul { list-style: none; }
         .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
 
-        /* [헤더 & 내비게이션] */
+        /* [헤더] */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
-            backdrop-filter: blur(5px);
+            padding: 20px 0;
+            transition: 0.3s;
+        }
+        
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
 
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+
+        .nav-menu ul { display: flex; gap: 40px; }
+        .nav-menu a { font-weight: 500; position: relative; }
+        .nav-menu a::after {
+            content: ''; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px;
+            background: var(--primary); transition: 0.3s;
         }
+        .nav-menu a:hover::after { width: 100%; }
 
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
+        .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
-        .menu-toggle {
-            display: none; /* 데스크톱 기본 숨김 */
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--text-dark);
-        }
-
-        .nav-menu ul { display: flex; gap: 30px; }
-        .nav-menu a { font-weight: 500; transition: var(--transition); }
-        .nav-menu a:hover { color: var(--primary-color); }
-
-        /* [히어로 섹션 (메인)] */
+        /* [3D 히어로 섹션] */
         .hero {
-            margin-top: 70px;
-            padding: 80px 0;
-            background: var(--bg-light);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 80vh;
+            perspective: 1000px; /* 3D 효과의 핵심 */
+            padding-top: 80px;
         }
 
-        .hero-content {
+        .hero-card {
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 50px;
-            flex-direction: row; /* 기본 가로 정렬 (데스크톱) */
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px); /* 유리 효과 */
+            border: 1px solid var(--glass-border);
+            padding: 60px;
+            border-radius: 30px;
+            box-shadow: var(--glass-shadow);
+            
+            /* 3D Transform 설정 */
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            transition: transform 0.1s ease-out; /* 부드러운 움직임 */
         }
 
-        .profile-box img {
-            width: 280px;
-            height: 280px;
+        .profile-img-box {
+            position: relative;
+            transform: translateZ(50px); /* 튀어나오는 효과 */
+        }
+
+        .profile-img-box img {
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--white);
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+            border: 5px solid rgba(255,255,255,0.8);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        .text-box h2 { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.2; }
-        .text-box .highlight { color: var(--primary-color); }
-        .text-box .school { font-size: 1.1rem; color: var(--text-light); font-weight: 600; margin-bottom: 20px; }
-        .text-box .desc { margin-bottom: 30px; font-size: 1.1rem; color: var(--text-light); }
+        .text-box {
+            transform: translateZ(30px); /* 글씨도 약간 튀어나오게 */
+        }
+
+        .greeting { display: block; font-size: 1.2rem; margin-bottom: 10px; color: var(--dark); }
+        .text-box h2 { font-size: 3rem; line-height: 1.2; margin-bottom: 15px; background: linear-gradient(to right, #6c5ce7, #81ecec); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .school { font-size: 1.2rem; font-weight: bold; color: #555; margin-bottom: 20px; }
+        .desc { margin-bottom: 30px; color: #666; font-size: 1.1rem; }
         
-        .btn {
+        .btn-3d {
             display: inline-block;
-            padding: 12px 30px;
-            background: var(--primary-color);
-            color: var(--white);
-            border-radius: 30px;
+            padding: 15px 35px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
-            transition: var(--transition);
+            transform: translateZ(40px); /* 버튼이 제일 튀어나옴 */
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.4);
+            transition: 0.3s;
         }
-        .btn:hover { background: #5649c0; transform: translateY(-3px); }
+        .btn-3d:hover { background: #5649c0; transform: translateZ(50px) scale(1.05); }
 
-        /* [소개 섹션] */
-        .section { padding: 80px 0; }
-        .section-title { text-align: center; margin-bottom: 50px; font-size: 2rem; }
+        /* [카드 섹션 (About)] */
+        .section { padding: 100px 0; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 60px; font-weight: 800; }
 
-        .about-grid {
+        .card-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 기본 3열 (데스크톱/태블릿) */
+            grid-template-columns: repeat(3, 1fr);
             gap: 30px;
+            perspective: 1000px;
         }
 
-        .card {
-            background: var(--white);
-            padding: 40px 20px;
-            border-radius: 15px;
+        .info-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: var(--transition);
+            border: 1px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .card:hover { transform: translateY(-10px); }
-        .card i { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; }
-        .card h3 { margin-bottom: 15px; font-size: 1.3rem; }
-        .card p { color: var(--text-light); font-size: 0.95rem; }
+
+        /* 카드 호버 시 3D 틸트 효과를 위한 기본 세팅 */
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .info-card i { font-size: 3rem; margin-bottom: 20px; color: var(--primary); }
+        .info-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
 
         /* [푸터] */
-        footer {
-            background: var(--text-dark);
-            color: var(--white);
-            padding: 50px 0;
-            text-align: center;
-        }
-        .social-links { margin: 20px 0; }
-        .social-links a { color: var(--white); font-size: 1.8rem; margin: 0 15px; transition: var(--transition); }
-        .social-links a:hover { color: var(--secondary-color); }
+        footer { text-align: center; padding: 50px 0; color: var(--dark); background: rgba(255,255,255,0.5); }
+        .socials a { font-size: 2rem; margin: 0 15px; color: var(--dark); transition: 0.3s; }
+        .socials a:hover { color: var(--primary); transform: scale(1.2); }
 
-        /* =========================================
-           [미디어 쿼리 - 반응형 처리]
-           ========================================= */
-        
-        /* 1. 태블릿 (992px 이하) */
+        /* ==================== 
+           반응형 미디어 쿼리 
+           ==================== */
         @media (max-width: 992px) {
-            .hero-content {
-                gap: 30px;
-            }
-            .text-box h2 { font-size: 2rem; }
-            .profile-box img { width: 220px; height: 220px; }
+            .hero-card { flex-direction: column; text-align: center; padding: 40px; }
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* 2. 모바일 (768px 이하) */
         @media (max-width: 768px) {
-            /* 헤더: 햄버거 메뉴 활성화 */
             .menu-toggle { display: block; }
-            
             .nav-menu {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--white);
-                border-top: 1px solid #eee;
-                transform: translateY(-150%); /* 위로 숨김 */
-                transition: var(--transition);
-                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+                position: absolute; top: 70px; left: 0; width: 100%;
+                background: white; transform: translateY(-150%); transition: 0.4s;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
             }
+            .nav-menu.active { transform: translateY(0); }
+            .nav-menu ul { flex-direction: column; padding: 20px; }
             
-            .nav-menu.active { transform: translateY(0); } /* 활성화 시 내려옴 */
+            .text-box h2 { font-size: 2rem; }
+            .card-grid { grid-template-columns: 1fr; }
             
-            .nav-menu ul {
-                flex-direction: column;
-                text-align: center;
-                gap: 0;
-            }
-            .nav-menu li { padding: 15px 0; border-bottom: 1px solid #f1f1f1; }
-
-            /* 히어로 섹션: 세로 정렬 */
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .profile-box img { width: 180px; height: 180px; margin-bottom: 20px; }
-            .text-box h2 { font-size: 1.8rem; }
-
-            /* 소개 섹션: 카드 1열로 변경 */
-            .about-grid { grid-template-columns: 1fr; }
+            /* 모바일에서는 과도한 3D 효과 줄임 */
+            .hero-card { transform: none !important; }
         }
     </style>
 </head>
 <body>
 
+    <div class="bg-shape shape1"></div>
+    <div class="bg-shape shape2"></div>
+
     <header>
         <div class="container">
-            <a href="#" class="logo">Sua Cho</a>
-            <button class="menu-toggle" aria-label="메뉴 열기">
-                <i class="fas fa-bars"></i>
-            </button>
+            <a href="#" class="logo">Su-Ah.</a>
+            <button class="menu-toggle"><i class="fas fa-bars"></i></button>
             <nav class="nav-menu">
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -225,19 +228,21 @@
     </header>
 
     <section id="home" class="hero">
-        <div class="container hero-content">
-            <div class="profile-box">
-                <img src="https://via.placeholder.com/400x400/a29bfe/ffffff?text=Su-Ah" alt="조수아 프로필">
-            </div>
-            <div class="text-box">
-                <span class="greeting">안녕하세요! 👋</span>
-                <h2>성장하는 개발자<br><span class="highlight">조수아</span>입니다.</h2>
-                <p class="school">🏫 한신대학교 재학 중</p>
-                <p class="desc">
-                    사용자 경험을 중요하게 생각하며,<br>
-                    새로운 기술을 배우는 것을 두려워하지 않습니다.
-                </p>
-                <a href="#contact" class="btn">연락하기</a>
+        <div class="container">
+            <div class="hero-card" id="tiltCard">
+                <div class="profile-img-box">
+                    <img src="https://via.placeholder.com/300x300/a29bfe/ffffff?text=Su-Ah" alt="조수아">
+                </div>
+                <div class="text-box">
+                    <span class="greeting">Hello, World! 👋</span>
+                    <h2>Creative Developer<br>Jo Su-Ah</h2>
+                    <p class="school">🎓 한신대학교 (Hanshin Univ.)</p>
+                    <p class="desc">
+                        웹 기술을 통해 상상을 현실로 만듭니다.<br>
+                        사용자 경험(UX)에 집중하는 프론트엔드 개발자입니다.
+                    </p>
+                    <a href="#contact" class="btn-3d">Contact Me</a>
+                </div>
             </div>
         </div>
     </section>
@@ -245,26 +250,27 @@
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title">About Me</h2>
-            <div class="about-grid">
-                <div class="card">
-                    <i class="fas fa-graduation-cap"></i>
+            <div class="card-grid">
+                <div class="info-card js-tilt">
+                    <i class="fas fa-university"></i>
                     <h3>Education</h3>
                     <p><b>한신대학교</b></p>
-                    <p>AISW학 전공</p>
-                    <p>2025.03 ~ 재학 중</p>
+                    <p>컴퓨터공학 관련 전공</p>
+                    <p>배움에는 끝이 없습니다.</p>
                 </div>
-                <div class="card">
-                    <i class="fas fa-code"></i>
+                <div class="info-card js-tilt">
+                    <i class="fas fa-laptop-code"></i>
                     <h3>Skills</h3>
-                    <p>HTML / CSS / JS</p>
-                    <p>Python / C</p>
+                    <p>HTML5, CSS3, JavaScript</p>
+                    <p>React, Node.js</p>
+                    <p>Git, Figma</p>
                 </div>
-                <div class="card">
-                    <i class="fas fa-heart"></i>
-                    <h3>Interests</h3>
-                    <p>Web Development</p>
-                    <p>Mobile App</p>
-                    <p>UI/UX Design</p>
+                <div class="info-card js-tilt">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Vision</h3>
+                    <p>풀스택 개발자</p>
+                    <p>혁신적인 웹 서비스 구현</p>
+                    <p>팀워크와 소통 중시</p>
                 </div>
             </div>
         </div>
@@ -272,56 +278,96 @@
 
     <footer id="contact">
         <div class="container">
-            <h2>Contact</h2>
-            <p>함께 프로젝트를 하고 싶다면 언제든 연락주세요!</p>
-            <div class="social-links">
+            <h2>Let's Connect</h2>
+            <div class="socials" style="margin-top: 20px;">
                 <a href="#"><i class="fab fa-github"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="mailto:email@example.com"><i class="fas fa-envelope"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
             </div>
-            <p>&copy; 2025 Sua Cho. All Rights Reserved.</p>
+            <p style="margin-top: 20px; font-size: 0.9rem;">&copy; 2025 Jo Su-Ah. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
+        // ==========================================
+        //  JavaScript: 3D 틸트 효과 및 인터랙션 구현
+        // ==========================================
+
         document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navMenu = document.querySelector('.nav-menu');
-            const menuLinks = document.querySelectorAll('.nav-menu a');
+            
+            /* 1. 메인 히어로 카드 3D 틸트 효과 Logic */
+            const heroCard = document.getElementById('tiltCard');
+            const container = document.querySelector('.hero');
 
-            // 1. 햄버거 버튼 클릭 시 메뉴 토글
-            menuToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
+            if(window.innerWidth > 768) { // 모바일이 아닐 때만 작동
+                container.addEventListener('mousemove', (e) => {
+                    const xAxis = (window.innerWidth / 2 - e.pageX) / 25; // X축 회전 각도 계산
+                    const yAxis = (window.innerHeight / 2 - e.pageY) / 25; // Y축 회전 각도 계산
+                    
+                    // 카드 회전 적용
+                    heroCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                });
+
+                // 마우스가 영역을 벗어나면 원래대로 복귀
+                container.addEventListener('mouseleave', () => {
+                    heroCard.style.transform = `rotateY(0deg) rotateX(0deg)`;
+                    heroCard.style.transition = "all 0.5s ease";
+                });
                 
-                // 아이콘 변경 (햄버거 <-> X)
-                const icon = menuToggle.querySelector('i');
-                if (navMenu.classList.contains('active')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
+                // 마우스 진입 시 트랜지션 제거 (실시간 반응을 위해)
+                container.addEventListener('mouseenter', () => {
+                    heroCard.style.transition = "none";
+                });
+            }
 
-            // 2. 메뉴 항목 클릭 시 메뉴 닫기 (모바일 UX)
-            menuLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        menuToggle.querySelector('i').classList.remove('fa-times');
-                        menuToggle.querySelector('i').classList.add('fa-bars');
-                    }
+            /* 2. 작은 카드들(About) 개별 3D 효과 */
+            const cards = document.querySelectorAll('.js-tilt');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    if(window.innerWidth <= 768) return;
+                    
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left; // 카드 내 X 좌표
+                    const y = e.clientY - rect.top;  // 카드 내 Y 좌표
+                    
+                    const xCenter = rect.width / 2;
+                    const yCenter = rect.height / 2;
+                    
+                    // 중심축 기준으로 회전값 계산 (감도 조절: /10)
+                    const rotateX = ((y - yCenter) / 10) * -1; 
+                    const rotateY = (x - xCenter) / 10;
+
+                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
                 });
             });
 
-            // 3. 부드러운 스크롤 효과 (브라우저 호환성 보완)
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+            /* 3. 헤더 스크롤 효과 (투명 -> 불투명) */
+            window.addEventListener('scroll', () => {
+                const header = document.querySelector('header');
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            /* 4. 모바일 메뉴 토글 */
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+            
+            // 메뉴 클릭 시 닫기
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
                 });
             });
         });
